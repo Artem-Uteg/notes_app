@@ -19,6 +19,7 @@ async def plus_one(req):
     try: await storage.store(req.app['storage'], number)
     except Exception as err: print("Failed to store", number, "--", err)
 
+    if number % 10 == 0: return web.Response(text='bad_numb', status=418)
     return web.Response(text=json.dumps({
         "answer": str(number + 1)
     }))
@@ -45,3 +46,4 @@ def main():
     web.run_app(app, host='127.0.0.1', port='9118')
 
 main()
+
