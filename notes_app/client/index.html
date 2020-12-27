@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Скелет клиент-серверного приложения</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:400,600'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+<div class="card">
+  <p>Дисклеймер: Кирилл Александрович, мы это честно сами написали, не копипаст 100%</p>
+  
+  <button class="open">Откройте окно, жарко!</button>
+</div>
+
+<div class="modals">
+  <div class="modal-content">
+    <div class="modal-wrap">
+	<div>
+         <p>Введите сюда число: <input id="NUMBER" type="text"></p>
+	 <div id="ok" style="color:green">Все ок!</div>
+         <p><button onclick="makeQuery()">Жми если качок!</button></p>
+	
+	</div>	
+      <button class="close">Закройте окно, дует!</button>
+    </div>
+  </div>
+</div>
+  
+    <script src="js/index.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>
