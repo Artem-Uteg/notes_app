@@ -21,7 +21,7 @@ modalBtn.addEventListener('click',function(){
   modalContainer.style.display = 'block';  
   window.setTimeout(function(){
     modalContainer.classList.add('active');
-  },0.1);
+  },1000);
 });
 
 closeBtn.addEventListener('click',function(){
