@@ -31,3 +31,4 @@ closeBtn.addEventListener('click',function(){
     modalContainer.style.display = 'none';
   },3000);
 });
+document.addEventListener("DOMContentLoaded", ready);
