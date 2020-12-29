@@ -23,7 +23,7 @@ modalBtn.addEventListener('click',function(){
   modalContainer.style.display = 'block';  
   window.setTimeout(function(){
     modalContainer.classList.add('active');
-  },1000);
+  },200);
 });
 
 closeBtn.addEventListener('click',function(){
@@ -34,4 +34,4 @@ closeBtn.addEventListener('click',function(){
   },3000);
 });
 }
-document.addEventListener("load", ready);
+addEventListener("load", ready);
