@@ -1,45 +1,47 @@
-import aiosqlite as db
 
+import aiosqlite as db0
+import asyncio
+import time
 
-async def init(): 
-    conn = await db.connect('data.db3')
-    await conn.executescript('''
-    CREATE TABLE IF NOT EXISTS queries(id INTEGER PRIMARY KEY, number, timestamp);
-    CREATE TABLE IF NOT EXISTS sum(value INTEGER);
-    
-    ''')
+async def init():
+    conn = await db0.connect('db.db3', isolation_level=None)
+    c = await conn.cursor()
+    await c.executescript(
+        '''CREATE TABLE IF NOT EXISTS number_values(qwerty, timestamp);
+        CREATE TABLE IF NOT EXISTS sum_of_numbers(sum_value);
+            ''')
+    await c.execute('''SELECT sum_value FROM sum_of_numbers''')
+    sum_value_0 = await c.fetchone()
     try:
-        curs = await conn.cursor()
-        await curs.execute('''SELECT value from sum''')
-        a = await curs.fetchone()
-        b = int(a[0])
-    except: await conn.execute('''INSERT INTO sum(value) values(0)''')
-    await conn.commit()
+        sum_value_0[0]
+    except:
+        await c.execute('''INSERT INTO sum_of_numbers VALUES (0)''')
     return conn
 
-async def get_sum(conn): #SELECT TOP 1 summ from queries order by id DESC
-    curs = await conn.cursor()
-    await curs.execute('''SELECT value FROM sum''')
-    summm = await curs.fetchone()
-    #print(summm)
-    return int(summm[0])
 
 def free(conn): return conn.close()
 
 
-async def store(conn, number):
-    if (number % 10) != 0:
-        summ = await get_sum(conn)
-        #await conn.execute('''SELECT queries.summ FROM queries ORDER BY id DESC LIMIT 1''')
-        #summ = int(conn.fetchall()[0])
-        summ += number
-        curs = await conn.cursor()
-        await curs.execute('''UPDATE sum SET value = ?''', [summ])
-        await conn.execute('''
-        INSERT INTO queries(number, timestamp)
-        VALUES(?, CURRENT_TIMESTAMP)
-        ''', [str(number)])
+async def store(conn, value):
+    wait = True
+    time_to_sleep = 0.008
+    c = await conn.cursor()
+    while wait:
+        try:
+            await c.execute('''BEGIN EXCLUSIVE''')
+            wait = False
+        except:
+            if time_to_sleep < 6:
+                time_to_sleep *= 1.2
 
-        await conn.commit()
-
+            await asyncio.sleep(time_to_sleep)
+    await c.execute('''SELECT sum_value FROM sum_of_numbers''')
+    sum_value_00 = await c.fetchone()
+    sum_value_0 = int(sum_value_00[0])
+    sum_value_0 += value
+    await c.execute('''UPDATE sum_of_numbers SET sum_value = ?''', ([sum_value_0]))
+    await c.execute('''INSERT INTO number_values(qwerty, timestamp)
+            VALUES(?, CURRENT_TIMESTAMP)
+            ''', [str(value)])
+    await c.execute('''COMMIT''')
 
