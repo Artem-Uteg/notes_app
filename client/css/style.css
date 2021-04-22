@@ -1,10 +1,10 @@
 #history {
-  position: fixed; /* Фиксированное положение */
-  left: 100px; bottom: 300px; /* Левый нижний угол */
-  padding: 10px; /* Поля вокруг текста */
-  background: #39b54a; /* Цвет фона */
-  color: #fff; /* Цвет текста */
-  width: 80%; /* Ширина слоя */
+  left: 100px;
+  bottom: 300px;
+  padding: 10px;
+  background: #39b54a; 
+  color: #FFFFFF;
+  width: 560px;
 }
 
 .alert {

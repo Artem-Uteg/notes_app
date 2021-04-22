@@ -15,7 +15,7 @@ async def plus_one(req):
     
     if body["action"] == 'history':
         #storage.take_info(req.app)
-        return web.Response(text=json.dumps(storage.take_info(req.app['storage'])))
+        return web.Response(text=json.dumps(await storage.take_info(req.app['storage'])))
         
         
 

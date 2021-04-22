@@ -9,7 +9,7 @@ async function makeQuery() {
   }  
 }
 
-addEventListener("load", () => {
+addEventListener("load", async() => {
   const res = await fetch('/', {
     method: 'POST',
     body: JSON.stringify({ action: "history" }),
@@ -17,7 +17,7 @@ addEventListener("load", () => {
    
   const history = await res.json();
   for (const message of history) {
-    document.getElementById('history').innerHTML += `${message.date} ${message.text}`;
+    document.getElementById('history').innerHTML += "\r\n" +`${message[1]}` +' '+`${message[2]}`+' ';
   }
 
 });
