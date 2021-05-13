@@ -1,4 +1,14 @@
+function newHistory(){
+    const big_div = document.getElementById("history")
+    for (const message of HISTORY) {
+        let div = document.createElement('div');
+        
+        div.className = "message";
+        div.innerHTML = `<div class = "data">${message[0]}</div><div class = "text">${message[1]}</div>`;
 
+        big_div.appendChild(div);
+    }
+}
 
 async function makeHistory() {
   const res = await fetch('/', {
@@ -23,14 +33,9 @@ async function makeQuery() {
   if (!res.ok) {
     return alert(await res.text()); 
   }  
-  for (const message of HISTORY) {
-    let div = document.createElement('div');
-    div.className = "message";
-    div.innerHTML = `${message[0]}` +' '+`${message[1]}`;
-
-    document.getElementById("history").appendChild(div);
-    }
+  newHistory()
 }
+
 const HISTORY = [[' ' ,' ', 0]];
 
 
