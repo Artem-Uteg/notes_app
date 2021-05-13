@@ -6,8 +6,10 @@ async def index(_req):
     return web.Response(status=302, headers={"Location": "/index.html"})
 
 
-#temp_history = []
+temp_history = []
+
 async def plus_one(req):
+    #[[1, text]
     try: body = await req.json()
     except: return web.Response(text='not_json', status=500)
 
@@ -15,19 +17,30 @@ async def plus_one(req):
     
     if body["action"] == 'history':
         #storage.take_info(req.app)
-        return web.Response(text=json.dumps(await storage.take_info(req.app['storage'])))
+        return web.Response(text=json.dumps(temp_history[len(temp_history)-5:]))
+        #return web.Response(text=json.dumps(await storage.take_info(req.app['storage']))) #переделать и выдавать 5 первых сообщений
         
         
 
     if body["action"] == '+1':
+        
         if not isinstance(body["arg"], str) or len(body["arg"]) > 255:#нет сообщения: выдать ошибка
             return web.Response(text='error', status=418)
 
-        try: await storage.store(req.app['storage'], body["arg"])
+        try: temp_history.append(["01.01.1977", body["arg"], len(temp_history)])#storage.store(req.app['storage'], body["arg"])
         except Exception as err: print("Failed to store", body["arg"], "--", err)
         #добавить сообщение в историю
         
         return web.Response(text='')
+
+    if body["action"] == 'next':
+        if type(body["arg"]) == int:
+            if body["arg"] >=5:
+                return web.Response(text=json.dumps(temp_history[5:]))
+            return web.Response(text=json.dumps(temp_history[5:]))
+
+        #return web.Respose(text=json.dumps(await storage.take_info_another(req.app['storage']))) #переделать и выдавать 5 первых сообщений
+        
 
     return web.Response('not_supported', status=500)
 
@@ -35,7 +48,7 @@ async def plus_one(req):
 """
     if "arg" not in body: return web.Response(text='no_arg', status=500)
 
-    try: number = str(body["arg"]) #isinstance(n, str)                                                                                      json.dumps({"date": [], "text": []})                         [ [],[] ] // [], [] [[date,text],[...]]
+    try: number = str(body["arg"]) #isinstance(n, str)                                                                                      json.dumps({"date": [], "text": []})                         [ [],[] ] // [], [] [[date, text, id],[...]]
     except: return web.Response(text='bad_arg', status=500)
 
     try: await storage.store(req.app['storage'], number)
@@ -68,4 +81,5 @@ def main():
     web.run_app(app, host='127.0.0.1', port='9118')
 
 main()
+
 
