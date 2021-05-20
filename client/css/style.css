@@ -1,10 +1,39 @@
+@import url(https://fonts.googleapis.com/css?family=Arvo:700);
+@import url(https://fonts.googleapis.com/css?family=Seaweed+Script);
+
+.layer {
+    overflow: scroll; /* Добавляем полосы прокрутки */
+    width: 545px; /* Ширина блока */
+    height: 180px; /* Высота блока */
+    padding: 5px; /* Поля вокруг текста */
+    border: solid 1px black; /* Параметры рамки */
+}
+
+
+.text {
+    padding: 20px 40px; / *отступ вложенного текста от рамки */
+    background: #fff; /* фон рамки */
+    font-size: 20px; /* размер шрифта */
+    border: 2px dashed #000000; /* размер, форма и цвет рамки */
+    border-radius: 10px; /*  радиус скругления углов рамки */
+    box-shadow: 0 0 0 4px #fff, 2px 1px 6px 4px rgba(150, 128, 137, 0.5); /* смещение, размер и цвет тени рамки*/
+      color: #000000;
+      font-family: 'Lato', sans-serif;
+}
+
+.data {
+  margin-bottom: 2%;
+  margin-top: 5%;
+}
+
 #history {
   left: 100px;
   bottom: 300px;
   padding: 10px;
-  background: #39b54a; 
-  color: #FFFFFF;
+  background: #fff; 
+  color: #000000;
   width: 560px;
+  border-radius: 10px; /*  радиус скругления углов рамки */
 }
 
 .alert {
@@ -186,3 +215,5 @@ body {
 .close:focus {
   box-shadow: 0 0 10px #fa5433;
 }
+
+

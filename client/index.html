@@ -27,12 +27,13 @@
          <p>Введите заметку: <input id="NUMBER" type="text"></p>
 	 <div id="ok" style="color:green">Все ок!</div>
 	
-         <p><button onclick="makeQuery()">Сохранить</button></p>
+         <p><button onclick="postMessage()">Сохранить</button></p>
 	</div>	
       <button class="close">Закройте окно, дует!</button>
     <div id="history"> 
-         <p><button onclick="makeHistory()">Далее</button></p>
+         <p><button onclick="nextHistory()">Далее</button></p>
          <p> История: </p>
+         <div id="history_text" class="layer"> </div>
      </div>
     </div>
   </div>
